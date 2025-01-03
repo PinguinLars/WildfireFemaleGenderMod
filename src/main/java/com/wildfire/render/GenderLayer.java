@@ -1,25 +1,25 @@
 /*
-    Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
-    Copyright (C) 2023 WildfireRomeo
-
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 3 of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Lesser General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+ * Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
+ * Copyright (C) 2023-present WildfireRomeo
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 package com.wildfire.render;
 
 import com.wildfire.api.IGenderArmor;
-import com.wildfire.main.WildfireEventHandler;
+import com.wildfire.main.config.GlobalConfig;
 import com.wildfire.main.entitydata.Breasts;
 import com.wildfire.main.WildfireGender;
 import com.wildfire.main.WildfireHelper;
@@ -37,7 +37,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.model.*;
 import net.minecraft.client.render.*;
 import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
@@ -119,7 +119,7 @@ public class GenderLayer<S extends BipedEntityRenderState, M extends BipedEntity
 	@Override
 	public void render(MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, S state, float limbAngle, float limbDistance) {
 		MinecraftClient client = MinecraftClient.getInstance();
-		if(client.player == null || !WildfireEventHandler.getRenderBreasts()) {
+		if(client.player == null) {
 			// we're currently in a menu; we won't have any data loaded to begin with, so just give up early
 			return;
 		}
@@ -149,6 +149,8 @@ public class GenderLayer<S extends BipedEntityRenderState, M extends BipedEntity
 	 */
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	protected boolean setupRender(S state, EntityConfig entityConfig) {
+		if(!GlobalConfig.RENDER_BREASTS) return false;
+
 		float partialTicks = MinecraftClient.getInstance().getRenderTickCounter().getTickDelta(true);
 		LivingEntity entity = Objects.requireNonNull(getEntity(state), "getEntity()");
 

@@ -1,20 +1,20 @@
 /*
-    Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
-    Copyright (C) 2023 WildfireRomeo
-
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 3 of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Lesser General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+ * Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
+ * Copyright (C) 2023-present WildfireRomeo
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 package com.wildfire.api;
 
@@ -48,7 +48,7 @@ public class WildfireAPI {
      *          of resource pack configurations in the future.
      *
      * @implNote Implementations added through this method are presently ignored if a resource pack defines armor data
-     *           at {@code NAMESPACE:wildfire_gender_data/MODEL.json}, and are only used as a default implementation.
+     *           at {@code NAMESPACE:wildfire_gender_data/ASSET_ID.json}, and are only used as a default implementation.
      *
      * @param  item  the item that you are linking this {@link IGenderArmor} to
      * @param  genderArmor the class implementing the {@link IGenderArmor} to apply to the item

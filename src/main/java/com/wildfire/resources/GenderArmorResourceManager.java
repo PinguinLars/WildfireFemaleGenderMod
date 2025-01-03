@@ -1,20 +1,20 @@
 /*
-    Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
-    Copyright (C) 2023 WildfireRomeo
-
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 3 of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Lesser General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+ * Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
+ * Copyright (C) 2023-present WildfireRomeo
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 package com.wildfire.resources;
 
@@ -26,7 +26,9 @@ import net.fabricmc.fabric.api.resource.IdentifiableResourceReloadListener;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.EquippableComponent;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.RegistryKey;
 import net.minecraft.resource.JsonDataLoader;
+import net.minecraft.resource.ResourceFinder;
 import net.minecraft.resource.ResourceManager;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.profiler.Profiler;
@@ -40,7 +42,7 @@ import java.util.Optional;
 @Environment(EnvType.CLIENT)
 public final class GenderArmorResourceManager extends JsonDataLoader<IGenderArmor> implements IdentifiableResourceReloadListener {
 	private GenderArmorResourceManager() {
-		super(IGenderArmor.CODEC, "wildfire_gender_data");
+		super(IGenderArmor.CODEC, ResourceFinder.json("wildfire_gender_data"));
 	}
 
 	public static final GenderArmorResourceManager INSTANCE = new GenderArmorResourceManager();
@@ -52,7 +54,8 @@ public final class GenderArmorResourceManager extends JsonDataLoader<IGenderArmo
 
 	public static Optional<IGenderArmor> get(ItemStack item) {
 		return Optional.ofNullable(item.get(DataComponentTypes.EQUIPPABLE))
-				.flatMap(EquippableComponent::model)
+				.flatMap(EquippableComponent::assetId)
+				.map(RegistryKey::getValue)
 				.map(GenderArmorResourceManager::get);
 	}
 

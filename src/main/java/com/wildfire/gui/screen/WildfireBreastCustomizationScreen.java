@@ -1,20 +1,20 @@
 /*
-    Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
-    Copyright (C) 2023 WildfireRomeo
-
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 3 of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Lesser General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+ * Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
+ * Copyright (C) 2023-present WildfireRomeo
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 package com.wildfire.gui.screen;
 
@@ -24,6 +24,7 @@ import com.wildfire.gui.WildfireButton;
 import com.wildfire.gui.WildfireSlider;
 import com.wildfire.main.Gender;
 import com.wildfire.main.WildfireGender;
+import com.wildfire.main.config.GlobalConfig;
 import com.wildfire.main.entitydata.Breasts;
 import com.wildfire.main.entitydata.PlayerConfig;
 import com.wildfire.main.config.Configuration;
@@ -64,11 +65,12 @@ public class WildfireBreastCustomizationScreen extends BaseWildfireScreen {
 
     //Breast Physics Tab
     private WildfireSlider bounceSlider, floppySlider;
-    private WildfireButton btnHideInArmor, btnOverrideArmorPhys, btnBreastPhysics;
+    private WildfireButton btnOverrideArmorPhys, btnBreastPhysics;
 
     //Miscellaneous Tab
     private WildfireSlider voicePitchSlider;
-    private WildfireButton btnHurtSounds;
+    private WildfireButton btnHurtSounds, btnHideInArmor, btnShowTooltips;
+    private WildfireButton btnHolidayThemes;
 
     //Presets Code
     //private WildfireButton btnAddPreset, btnDeletePreset;
@@ -245,6 +247,26 @@ public class WildfireBreastCustomizationScreen extends BaseWildfireScreen {
             }
         }));
 
+        var config = GlobalConfig.INSTANCE;
+
+        this.addDrawableChild(btnShowTooltips = new WildfireButton(this.width / 2 - 36, tabOffsetY + 70, 166, 20,
+                Text.translatable("wildfire_gender.char_settings.show_armor_stat", config.get(GlobalConfig.ARMOR_STAT) ? ENABLED : DISABLED), button -> {
+            config.set(GlobalConfig.ARMOR_STAT, !config.get(GlobalConfig.ARMOR_STAT));
+            config.save();
+            button.setMessage(Text.translatable("wildfire_gender.char_settings.show_armor_stat", config.get(GlobalConfig.ARMOR_STAT) ? ENABLED : DISABLED));
+        }));
+
+        this.addDrawableChild(btnHolidayThemes = new WildfireButton(this.width / 2 - 36, tabOffsetY + 94, 166, 20,
+                Text.translatable("wildfire_gender.misc.holiday_themes", plr.hasHolidayThemes() ? ENABLED : DISABLED), button -> {
+            boolean enableHolidayThemes = !plr.hasHolidayThemes();
+            if(plr.updateHolidayThemes(enableHolidayThemes)) {
+                button.setMessage(Text.translatable("wildfire_gender.misc.holiday_themes", plr.hasHolidayThemes() ? ENABLED : DISABLED));
+            }
+        }, Tooltip.of(Text.translatable("wildfire_gender.tooltip.holiday_themes.line1"))
+                /*.append("\n\n")
+                .append(Text.translatable("wildfire_gender.tooltip.holiday_themes.line2")))*/
+        ));
+
         //Preset Tab Below
         PRESET_LIST = new WildfireBreastPresetList(this, 156, (j - 48));
         PRESET_LIST.setX(this.width / 2 + 30);
@@ -277,6 +299,8 @@ public class WildfireBreastCustomizationScreen extends BaseWildfireScreen {
         this.btnHideInArmor.visible = currentTab == 2;
         this.btnHurtSounds.visible = currentTab == 2;
         this.voicePitchSlider.visible = currentTab == 2;
+        this.btnShowTooltips.visible = currentTab == 2;
+        this.btnHolidayThemes.visible = currentTab == 2;
     }
 
 
@@ -329,7 +353,7 @@ public class WildfireBreastCustomizationScreen extends BaseWildfireScreen {
         } else if(currentTab == 1) {
             ctx.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_PHYSICS, (this.width) / 2 - 42, (this.height) / 2 - 43, 0, 0, 178, 104, 512, 512);
         } else if(currentTab == 2) {
-            ctx.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_MISC, (this.width) / 2 - 42, (this.height) / 2 - 43, 0, 0, 178, 80, 512, 512);
+            ctx.drawTexture(RenderLayer::getGuiTextured, BACKGROUND_MISC, (this.width) / 2 - 42, (this.height) / 2 - 43, 0, 0, 178, 128, 512, 512);
         }
 
         int x = this.width / 2;

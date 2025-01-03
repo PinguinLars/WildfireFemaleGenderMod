@@ -1,24 +1,23 @@
 /*
-    Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
-    Copyright (C) 2023 WildfireRomeo
-
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 3 of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Lesser General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+ * Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
+ * Copyright (C) 2023-present WildfireRomeo
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 package com.wildfire.main.networking;
 
-import com.mojang.datafixers.util.Function6;
 import com.mojang.datafixers.util.Function7;
 import com.wildfire.main.entitydata.Breasts;
 import com.wildfire.main.entitydata.PlayerConfig;
@@ -37,7 +36,7 @@ abstract class AbstractSyncPacket {
                 Uuids.PACKET_CODEC, p -> p.uuid,
                 Gender.CODEC, p -> p.gender,
                 PacketCodecs.FLOAT, p -> p.bustSize,
-                PacketCodecs.BOOL, p -> p.hurtSounds,
+                PacketCodecs.BOOLEAN, p -> p.hurtSounds,
                 PacketCodecs.FLOAT, p -> p.voicePitch,
                 BreastPhysics.CODEC, p -> p.physics,
                 Breasts.CODEC, p -> p.breasts,
@@ -79,8 +78,8 @@ abstract class AbstractSyncPacket {
     protected record BreastPhysics(boolean physics, boolean showInArmor, float bounceMultiplier, float floppyMultiplier) {
 
         public static final PacketCodec<ByteBuf, BreastPhysics> CODEC = PacketCodec.tuple(
-                PacketCodecs.BOOL, BreastPhysics::physics,
-                PacketCodecs.BOOL, BreastPhysics::showInArmor,
+                PacketCodecs.BOOLEAN, BreastPhysics::physics,
+                PacketCodecs.BOOLEAN, BreastPhysics::showInArmor,
                 PacketCodecs.FLOAT, BreastPhysics::bounceMultiplier,
                 PacketCodecs.FLOAT, BreastPhysics::floppyMultiplier,
                 BreastPhysics::new

@@ -1,20 +1,20 @@
 /*
-    Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
-    Copyright (C) 2023 WildfireRomeo
-
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 3 of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Lesser General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+ * Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
+ * Copyright (C) 2023-present WildfireRomeo
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 package com.wildfire.physics;
 
@@ -210,6 +210,8 @@ public class BreastPhysics {
 		this.targetRotVel = calcRotation(entity, bounceIntensity);
 		this.targetRotVel += (float) motion.y * bounceIntensity * randomB;
 
+		this.targetBounceX = -calcRotation(entity, bounceIntensity) / 10f;
+
 		float f2 = (float) entity.getVelocity().lengthSquared() / 0.2F;
 		f2 = f2 * f2 * f2;
 		if(f2 < 1.0F) f2 = 1.0F;
@@ -267,6 +269,7 @@ public class BreastPhysics {
 		// as any faster and the arm effectively doesn't swing at all; we check the previous tick's swing duration for
 		// reasons explained later on in this block
 		if((swingDuration > 1 || lastSwingDuration > 1) && pose != EntityPose.SLEEPING) {
+
 			float amplifier = 0f;
 			if(swingDuration < 6) {
 				amplifier = 0.15f * (6 - swingDuration);
@@ -281,6 +284,9 @@ public class BreastPhysics {
 			if(entity.handSwinging && entity.age % everyNthTick == 0) {
 				float hasteMult = MathHelper.clamp(everyNthTick / 5f, 0.4f, 1f);
 				this.targetBounceY += (Math.random() > 0.5 ? -0.25f : 0.25f) * amplifier * bounceIntensity * hasteMult;
+
+
+				this.targetBounceX = (0.5f * bounceIntensity) * (entity.getMainArm()==Arm.RIGHT?1f:-1f);
 			}
 
 			int swingTickDelta = entity.handSwingTicks - lastSwingTick;

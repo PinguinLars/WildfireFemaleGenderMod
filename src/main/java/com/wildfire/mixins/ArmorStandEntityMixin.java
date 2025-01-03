@@ -1,27 +1,25 @@
 /*
-    Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
-    Copyright (C) 2023 WildfireRomeo
-
-    This program is free software; you can redistribute it and/or
-    modify it under the terms of the GNU Lesser General Public
-    License as published by the Free Software Foundation; either
-    version 3 of the License, or (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-    Lesser General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-*/
+ * Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
+ * Copyright (C) 2023-present WildfireRomeo
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
 package com.wildfire.mixins;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import com.wildfire.main.WildfireGender;
-import com.wildfire.main.entitydata.BreastDataComponent;
-import com.wildfire.main.entitydata.PlayerConfig;
+import com.wildfire.events.ArmorStandInteractEvents;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -35,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(ArmorStandEntity.class)
 abstract class ArmorStandEntityMixin extends LivingEntity {
-	protected ArmorStandEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
+	private ArmorStandEntityMixin(EntityType<? extends LivingEntity> entityType, World world) {
 		super(entityType, world);
 	}
 
@@ -53,22 +51,7 @@ abstract class ArmorStandEntityMixin extends LivingEntity {
 			return stack;
 		}
 
-		PlayerConfig playerConfig = WildfireGender.getPlayerById(player.getUuid());
-		if(playerConfig == null) {
-			// while we shouldn't have our tag on the stack still, we're still checking to catch any armor
-			// that may still have the tag from older versions, or from potential cross-mod interactions
-			// which allow for removing items from armor stands without calling the vanilla
-			// #equip and/or #onBreak methods
-			BreastDataComponent.removeFromStack(stack);
-			return stack;
-		}
-
-		// Note that we always attach player data to the item stack as a server has no concept of resource packs,
-		// making it impossible to compare against any armor data that isn't registered through the mod API.
-		BreastDataComponent component = BreastDataComponent.fromPlayer(player, playerConfig);
-		if(component != null) {
-			component.write(player.getWorld().getRegistryManager(), stack);
-		}
+		ArmorStandInteractEvents.EQUIP.invoker().onEquip(player, stack);
 
 		return stack;
 	}
@@ -83,7 +66,7 @@ abstract class ArmorStandEntityMixin extends LivingEntity {
 	)
 	public ItemStack wildfiregender$removeBreastDataOnReplace(ItemStack stack, @Local(argsOnly = true) PlayerEntity player) {
 		if(!player.getWorld().isClient()) {
-			BreastDataComponent.removeFromStack(stack);
+			ArmorStandInteractEvents.REMOVE.invoker().onRemove(stack);
 		}
 		return stack;
 	}
@@ -98,7 +81,7 @@ abstract class ArmorStandEntityMixin extends LivingEntity {
 	)
 	public ItemStack wildfiregender$removeBreastDataOnBreak(ItemStack stack) {
 		if(!getWorld().isClient()) {
-			BreastDataComponent.removeFromStack(stack);
+			ArmorStandInteractEvents.REMOVE.invoker().onRemove(stack);
 		}
 		return stack;
 	}

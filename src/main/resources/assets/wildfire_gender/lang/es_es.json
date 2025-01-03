@@ -78,8 +78,8 @@
 
 
 	"wildfire_gender.cloud_settings": "Configuración del Sincronizado en la Nube",
-	"wildfire_gender.cloud.available_online": "Sincronizado en la Nube",
-	"wildfire_gender.cloud.unavailable_offline": "El Sincronizado en la Nube no está disponible debido a que no iniciaste sesión en una cuenta de Minecraft válida.",
+	"wildfire_gender.cloud.tooltip": "Sincronizado en la Nube",
+	"wildfire_gender.cloud.unavailable.invalid_account": "El Sincronizado en la Nube no está disponible debido a que no iniciaste sesión en una cuenta de Minecraft válida.",
 	"wildfire_gender.cloud.status": "Sincronizado: %s",
 	"wildfire_gender.cloud.automatic": "Sincro. Automática: %s",
 	"wildfire_gender.cloud.automatic.tooltip.line1": "Cuando se active se enviaran los cambios que hagas a la nube.",
@@ -91,8 +91,6 @@
 
 	"wildfire_gender.cloud.syncing.success": "Sincronizado!",
 	"wildfire_gender.cloud.syncing.fail": "Sincro. Fallida...",
-	"wildfire_gender.cloud.disclaimer.line1": "Los datos del servidor de sincronización se tienen que almacenar en caché durante al menos 30 minutos.",
-	"wildfire_gender.cloud.disclaimer.line2": "Si los cambios no son visibles, inténtalo más tarde.",
 
 	"wildfire_gender.sync_log.authenticating": "Autenticando cuenta...",
 	"wildfire_gender.sync_log.authentication_success": "Autenticación Exitosa.",

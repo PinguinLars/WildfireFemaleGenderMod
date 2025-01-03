@@ -79,8 +79,8 @@
 
 
 	"wildfire_gender.cloud_settings": "Synchronizierungs Einstellungen",
-	"wildfire_gender.cloud.available_online": "Cloud Synchronizierung",
-	"wildfire_gender.cloud.unavailable_offline": "Cloud Synchronizierung ist zurzeit nicht verfügbar da du nicht mit einem gültigen Minecraft Account eingeloggt bist",
+	"wildfire_gender.cloud.tooltip": "Cloud Synchronizierung",
+	"wildfire_gender.cloud.unavailable.invalid_account": "Cloud Synchronizierung ist zurzeit nicht verfügbar da du nicht mit einem gültigen Minecraft Account eingeloggt bist",
 	"wildfire_gender.cloud.status": "Cloud Synchronizierung: %s",
 	"wildfire_gender.cloud.automatic": "Automatische Synchronizierung: %s",
 	"wildfire_gender.cloud.automatic.tooltip.line1": "Wenn dies aktiviert ist werden deine Einstellungen nach jeder Änderung automatisch mit der Cloud synchronisiert.",
@@ -92,8 +92,6 @@
 
 	"wildfire_gender.cloud.syncing.success": "Synchroniziert",
 	"wildfire_gender.cloud.syncing.fail": "Synchronizierung fehlgeschlagen",
-	"wildfire_gender.cloud.disclaimer.line1": "Synchronizierungsdaten werden für ungefähr 30 Minuten auf dem Server gespeichert.",
-	"wildfire_gender.cloud.disclaimer.line2": "Wenn keine Veränderungen sichtbar sind, dann versuche die Synchronisierung später erneut durchzuführen..",
 
 	"wildfire_gender.sync_log.authenticating": "Überprüfe Account...",
 	"wildfire_gender.sync_log.authentication_success": "Überprüfung erfolgreich.",

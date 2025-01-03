@@ -78,8 +78,8 @@
 
 
 	"wildfire_gender.cloud_settings": "Sky Ship Wrench",
-	"wildfire_gender.cloud.available_online": "Sky Ship Analysis",
-	"wildfire_gender.cloud.unavailable_offline": "Sky Ship Analyzing is unavailable as we couldn't identify ya, matey! Are ya a bad pirate?",
+	"wildfire_gender.cloud.tooltip": "Sky Ship Analysis",
+	"wildfire_gender.cloud.unavailable.invalid_account": "Sky Ship Analyzing is unavailable as we couldn't identify ya, matey! Are ya a bad pirate?",
 	"wildfire_gender.cloud.status": "Sky Ship Analyzing: %s",
 	"wildfire_gender.cloud.automatic": "Automatic Analysis: %s",
 	"wildfire_gender.cloud.automatic.tooltip.line1": "While on, ya tit info will be sent to ze sky ship.",
@@ -91,8 +91,6 @@
 
 	"wildfire_gender.cloud.syncing.success": "Analyzed",
 	"wildfire_gender.cloud.syncing.fail": "Analysis failed!",
-	"wildfire_gender.cloud.disclaimer.line1": "Ze Sky Ship may need to have ze info for 30 minutes",
-	"wildfire_gender.cloud.disclaimer.line2": "If ze changes don't apply try to re-analyze latah, will ya matey?",
 
 	"wildfire_gender.sync_log.authenticating": "Identifying Matey...",
 	"wildfire_gender.sync_log.authentication_success": "Matey Identified.",
