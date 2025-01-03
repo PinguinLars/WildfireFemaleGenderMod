@@ -18,43 +18,31 @@
 
 package com.wildfire.mixins;
 
-import com.wildfire.main.WildfireGender;
-import com.wildfire.main.entitydata.PlayerConfig;
+import com.wildfire.main.entitydata.EntityConfig;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.damage.DamageSource;
+import net.minecraft.entity.decoration.ArmorStandEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.sound.SoundEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(LivingEntity.class)
 @Environment(EnvType.CLIENT)
-abstract class LivingEntityMixin {
-	@Inject(
-		method = "onDamaged",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/entity/LivingEntity;playSound(Lnet/minecraft/sound/SoundEvent;FF)V"
-		)
-	)
-	public void wildfiregender$playGenderHurtSound(DamageSource damageSource, CallbackInfo ci) {
-		MinecraftClient client = MinecraftClient.getInstance();
-		if(client.player == null || client.world == null) return;
+@Mixin({ArmorStandEntity.class, PlayerEntity.class})
+abstract class BreastPhysicsTickMixin {
+	@Inject(at = @At("TAIL"), method = "tick")
+	public void wildfiregender$tickBreastPhysics(CallbackInfo info) {
+		LivingEntity entity = (LivingEntity)(Object)this;
+		// Ignore ticks from the singleplayer integrated server
+		if(!entity.getWorld().isClient()) return;
 
-		if((LivingEntity)(Object)this instanceof PlayerEntity player && player.getWorld().isClient()) {
-			PlayerConfig genderPlayer = WildfireGender.getPlayerById(player.getUuid());
-			if(genderPlayer == null || !genderPlayer.hasHurtSounds()) return;
-
-			SoundEvent hurtSound = genderPlayer.getGender().getHurtSound();
-			if(hurtSound != null) {
-				float pitch = (player.getRandom().nextFloat() - player.getRandom().nextFloat()) * 0.2F /*+ 1.0F*/; // +1 is from getVoicePitch()
-				player.playSound(hurtSound, 1f, pitch + genderPlayer.getVoicePitch());
-			}
+		EntityConfig cfg = EntityConfig.getEntity(entity);
+		if(entity instanceof ArmorStandEntity) {
+			cfg.readFromStack(entity.getEquippedStack(EquipmentSlot.CHEST));
 		}
+		cfg.tickBreastPhysics(entity);
 	}
 }

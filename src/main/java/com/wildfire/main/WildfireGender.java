@@ -1,20 +1,20 @@
 /*
- * Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
- * Copyright (C) 2023-present WildfireRomeo
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Lesser General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- */
+    Wildfire's Female Gender Mod is a female gender mod created for Minecraft.
+    Copyright (C) 2023 WildfireRomeo
+
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU Lesser General Public
+    License as published by the Free Software Foundation; either
+    version 3 of the License, or (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+    Lesser General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
 
 package com.wildfire.main;
 
@@ -72,8 +72,7 @@ public class WildfireGender implements ModInitializer {
 			UUID.fromString("ad8ee68c-0aa1-47f9-b29f-f92fa1ef66dc"), //Diademiemi
 			UUID.fromString("8fb5e95d-7f41-4b4c-b8c5-4f15ea3fa2c1"), //Arcti.cc
 			UUID.fromString("3f36f7e9-7459-43fe-87ce-4e8a5d47da80"), //IzzyBizzy45
-			UUID.fromString("525b0455-15e9-49b7-b61d-f291e8ee6c5b"), //Powerless001
-			UUID.fromString("6e0e0db3-19e9-4fa7-af76-a6d3651c57b9") //A2 76
+			UUID.fromString("525b0455-15e9-49b7-b61d-f291e8ee6c5b") //Powerless001
 			//UUID.fromString("23b6feed-2dfe-4f2e-9429-863fd4adb946") //WildfireFGM (I'm not a contributor, silly!)
 	);
 

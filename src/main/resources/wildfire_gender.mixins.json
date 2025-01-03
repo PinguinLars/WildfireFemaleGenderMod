@@ -7,18 +7,10 @@
     "ArmorStandEntityMixin"
   ],
   "client": [
-    "ItemStackMixin",
+    "BreastPhysicsTickMixin",
     "LivingEntityMixin",
-    "PlayerEntityRendererMixin",
-    "accessors.EquipmentRendererAccessor",
-    "accessors.TextureManagerAccessor",
-    "accessors.TrimSpriteKeyConstructorAccessor",
     "renderstate.LivingEntityRendererMixin",
-    "renderstate.LivingEntityRenderStateMixin",
-
-    "cape.PlayerListEntryMixin",
-    "cape.SkinTexturesWildfireImplMixin",
-    "cape.SkinTexturesMixin"
+    "renderstate.LivingEntityRenderStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1
